@@ -7,10 +7,10 @@ from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 
 points = []
-
-
+temp2 = "Success "
 @api_view(['POST'])
 def plot(request):
+    found = False
     output = {}
     point = []
     point_data = json.loads(request.body)
@@ -20,25 +20,53 @@ def plot(request):
     point.append(y)
     points.append(point)
     if len(points) >= 4:
-        for point1 in points:
-            flag = 0
-            check = []
-            temp = 'Success ' + str(point1) + ' '
-            till_now = []
-            check.append(point1[0])
-            check.append(point1[1])
-            till_now.append(point1)
-            for point2 in points:
-                if point1 != point2:
-                    if point2[0] in check and point2[1] in check:
-                        temp = temp + str(point2) + ' '
-                        till_now.append(point2)
-                if len(till_now) == 4:
-                    output['status'] = temp.replace('[', '('
-                            ).replace(']', ')')
-                    return JsonResponse(output)
-        output['status'] = 'accepted'
-        return JsonResponse(output)
+        checker, answer = check_square(found)
+        if(checker):
+            found = True
+            output['status'] = answer
+            return JsonResponse(output)
+        else:
+            output['status'] = 'accepted'
+            return JsonResponse(output)
     else:
         output['status'] = 'accepted'
         return JsonResponse(output)
+    
+
+def check_square(found):
+    temp = "Success "
+    if(found):
+        return True, temp2
+    else:
+        for i in points:
+            for j in points:
+                for k in points:
+                    for l in points:
+                        if(is_square(i,j,k,l)):
+                            temp = temp + str(i) + " " + str(j) + " " + str(k) + " " + str(l)
+                            temp2 = temp
+                            return True, temp.replace('[', '(').replace(']', ')')
+        return False, ""
+def dist(p,q):
+    return (p[0] - q[0])**2 + (p[1] - q[1])**2
+
+def is_square(p1,p2,p3,p4):
+    d2 = dist(p1, p2)
+    d3 = dist(p1, p3)
+    d4 = dist(p1, p4)
+ 
+    if d2 == 0 or d3 == 0 or d4 == 0:   
+        return False
+
+    if d2 == d3 and 2 * d2 == d4 and \
+                    2 * dist(p2, p4) == dist(p2, p3):
+        return True
+    if d3 == d4 and 2 * d3 == d2 and \
+                    2 * dist(p3, p2) == dist(p3, p4):
+        return True
+ 
+    if d2 == d4 and 2 * d2 == d3 and \
+                    2 * dist(p2, p3) == dist(p2, p4):
+        return True
+ 
+    return False
