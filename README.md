@@ -18,34 +18,34 @@
 
 ## Given below are the api endpoints for each question
 
-- Question 1:
-items (POST): api endpoint to find details of valid positive integers and number of values that are invalid
-Usage: http://127.0.0.1:8000/items/?data=1&data=4&data=-1&data="hello"&data="world"&data=0&data=10&data=7
-Return type: Json
-- Question 2:
-booking/ (POST): api endpoint to create a booking
-Usage: 
+## Question 1:
+## items (POST): api endpoint to find details of valid positive integers and number of values that are invalid
+- Usage: http://127.0.0.1:8000/items/?data=1&data=4&data=-1&data="hello"&data="world"&data=0&data=10&data=7
+- Return type: Json
+## Question 2:
+## booking/ (POST): api endpoint to create a booking
+- Usage: 
 http://127.0.0.1:8000/booking/
 Body: 
 {
   "slot": 1, "name": "John"
 }
-Return Type: Json
-booking/ (GET): api endpoint to view all bookings
-Usage: http://127.0.0.1:8000/booking/
-Return Type: Json
-cancel/ (POST): api endpoint to cancel a booking
-Usage: http://127.0.0.1:8000/cancel/
+- Return Type: Json
+## booking/ (GET): api endpoint to view all bookings
+-  Usage: http://127.0.0.1:8000/booking/
+- Return Type: Json
+## cancel/ (POST): api endpoint to cancel a booking
+- Usage: http://127.0.0.1:8000/cancel/
 Body:
 {
   "slot": 1, "name": "John"
 }
-Return Type: Json
-- Question 3:
-plot/ (POST): api endpoint for finding out if points given form a square or not
-Usage: http://127.0.0.1:8000/plot/
+- Return Type: Json
+## Question 3:
+## plot/ (POST): api endpoint for finding out if points given form a square or not
+- Usage: http://127.0.0.1:8000/plot/
 Body:
 {
   "x": 1, "y": 1
 }
-Return Type: Json
+- Return Type: Json
